@@ -47,9 +47,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 
 // Mis componentes
-import {AppHojaVidaComponent} from './hoja-vida/app.hoja-vida.component';
-import { AppEmpresaComponentComponent } from './app-empresa-component/app-empresa-component.component';
-import { AppEmpresaDosComponent } from './app-empresa-dos/app-empresa-dos.component';
+import { ProfessionalsComponent } from './professionals/professionals.component';
 
 @NgModule({
     imports: [
@@ -97,9 +95,7 @@ import { AppEmpresaDosComponent } from './app-empresa-dos/app-empresa-dos.compon
         ConfirmDialogModule
     ],
     declarations: [
-        AppHojaVidaComponent,
-        AppEmpresaComponentComponent,
-        AppEmpresaDosComponent
+        ProfessionalsComponent
     ],
     providers: [DialogService]
 })

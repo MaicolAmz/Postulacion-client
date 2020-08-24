@@ -1,2 +1,15 @@
-export {Professional} from './professional';
-export {Attendance2} from './attendance2';
+export { Ability } from './ability';
+export { Academic_Formation } from './academic_formation';
+export { Catalogue } from './catalogue';
+export { Category } from './category';
+export { Category_Offer } from './category_offer';
+export { Company } from './company';
+export { Company_Professional } from './company_professional';
+export { Course } from './course';
+export { Language } from './language';
+export { Location } from './location';
+export { Offer } from './offer';
+export { Offer_Professional } from './offer_professional';
+export { Professional } from './professional';
+export { Professional_Experience } from './professional_experience';
+export { Professional_Reference } from './professional_reference';

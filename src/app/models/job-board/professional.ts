@@ -1,15 +1,10 @@
 import {User} from '../authentication/models.index';
 import {State} from '../ignug/models.index';
-import {Attendance2} from './models.index';
 
 export class Professional {
     id: number;
-    user: User;
-    date: Date;
-    state: State;
-    attendance2: Attendance2;
-    constructor() {
-        this.date = new Date();
+    user_id: User;
+    about_me: string;
+    state_id: State;
 
-    }
 }
