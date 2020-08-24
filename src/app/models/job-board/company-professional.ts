@@ -1,8 +1,8 @@
 import { Location } from './location';
-import { State } from './../ignug/state';
+import { State } from '../ignug/state';
 import { Company } from './company';
 
-export class Company_Professional {
+export class CompanyProfessional {
     id: number;
     company_id: Company;
     code: string;

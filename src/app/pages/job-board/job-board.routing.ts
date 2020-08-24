@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
-
 import {AuthGuard} from '../../shared/auth-guard/auth.guard';
-import { ProfessionalsComponent } from './professionals/professionals.component';
+
+import { AppProfessionalsComponent } from './professionals/app.professionals.component';
 
 export const JobBoardRoutes: Routes = [
     {
@@ -9,9 +9,9 @@ export const JobBoardRoutes: Routes = [
         children: [
             {
                 path: 'professionals',
-                component: ProfessionalsComponent,
+                component: AppProfessionalsComponent,
                 // canActivate: [AuthGuard]
-            },
+            }
         ]
     }
 ];

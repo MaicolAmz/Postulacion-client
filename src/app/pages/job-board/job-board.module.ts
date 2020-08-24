@@ -47,7 +47,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 
 // Mis componentes
-import { ProfessionalsComponent } from './professionals/professionals.component';
+import { AppProfessionalsComponent } from './professionals/app.professionals.component';
 
 @NgModule({
     imports: [
@@ -95,7 +95,7 @@ import { ProfessionalsComponent } from './professionals/professionals.component'
         ConfirmDialogModule
     ],
     declarations: [
-        ProfessionalsComponent
+        AppProfessionalsComponent
     ],
     providers: [DialogService]
 })

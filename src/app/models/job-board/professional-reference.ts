@@ -1,7 +1,7 @@
 import { Professional } from './professional';
 import { State } from './../ignug/state';
 
-export class Professional_Reference {
+export class ProfessionalReference {
     id: number;
     professional_id: Professional;
     institution: string;

@@ -2,7 +2,7 @@ import { Catalogue } from './catalogue';
 import { Professional } from './professional';
 import { State } from '../ignug/state';
 
-export class Professional_Experience {
+export class ProfessionalExperience {
     id: number;
     professional_id: Professional;
     employer: string;
