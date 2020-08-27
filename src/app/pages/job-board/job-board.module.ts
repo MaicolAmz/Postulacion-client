@@ -44,6 +44,9 @@ import {DialogModule} from 'primeng/dialog';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {CardModule} from 'primeng/card';
+import {PanelMenuModule} from 'primeng/panelmenu';
+import {PaginatorModule} from 'primeng/paginator';
 
 
 // Mis componentes
@@ -92,7 +95,10 @@ import { AppProfessionalsComponent } from './professionals/app.professionals.com
         ToastModule,
         AccordionModule,
         DialogModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        CardModule,
+        PanelMenuModule,
+        PaginatorModule
     ],
     declarations: [
         AppProfessionalsComponent
