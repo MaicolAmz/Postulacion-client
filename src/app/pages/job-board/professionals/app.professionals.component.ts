@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/api';
+import { JobBoardService } from '../../../services/job-board/job-board.service';
+import { Professional } from '../../../models/job-board/models.index';
 
 @Component({
   selector: 'app-professionals',
@@ -8,8 +10,17 @@ import {MenuItem} from 'primeng/api';
 export class AppProfessionalsComponent implements OnInit {
 
   items: MenuItem[];
+  professionals: Professional[];
+  totalCompanies: number;
+  totalProffesionals: number;
+  totalOffers: number;
+
+  constructor(private jobBoardService: JobBoardService) {}
 
   ngOnInit() {
+    this.getTotal();
+    this.getProfessionals();
+
     this.items = [
       {
         label: 'File',
@@ -87,6 +98,22 @@ export class AppProfessionalsComponent implements OnInit {
     ];
   }
 
-  constructor() { }
+  getProfessionals(): void {
+    this.jobBoardService.get('postulants').subscribe(
+      resolve => this.professionals = resolve['postulants']['data'],
+      error => console.error(error)
+    );
+  }
+
+  getTotal(): void {
+    this.jobBoardService.get('total').subscribe(
+      resolve => {
+        this.totalCompanies = resolve['totalCompanies'];
+        this.totalOffers = resolve['totalOffers'];
+        this.totalProffesionals = resolve['totalProfessionals'];
+      },
+      error => console.error(error)
+    );
+  }
 
 }

@@ -1,17 +1,17 @@
 <h1>Bolsa de Empleo</h1>
 <div class="p-grid">
     <div class="p-col">
-        <h2>#</h2>
+        <h2>{{totalCompanies}}</h2>
         <i class="pi pi-user" style="font-size: 3em"></i>
         <h3>Empresas Registradas</h3>
     </div>
     <div class="p-col">
-        <h2>#</h2>
+        <h2>{{totalProffesionals}}</h2>
         <i class="pi pi-users" style="font-size: 3em"></i>
         <h3>Profesionales Vinculados</h3>
     </div>
     <div class="p-col">
-        <h2>#</h2>
+        <h2>{{totalOffers}}</h2>
         <i class="pi pi-briefcase" style="font-size: 3em"></i>
         <h3>Ofertas laborales</h3>
     </div>
@@ -27,9 +27,9 @@
             <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
         </div>
         <p-paginator></p-paginator>
-        <p-card>
-            <p-header>Header content here</p-header>
-            Body Content
+        <p-card *ngFor="let professional of professionals">
+            <p-header>User # {{professional.id}} (Título de...)</p-header>
+            {{professional.about_me}}
         </p-card>
     </div>
 </div>

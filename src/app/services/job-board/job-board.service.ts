@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
     providedIn: 'root'
 })
 
-export class JobBoardServiceService {
+export class JobBoardService {
     headers: HttpHeaders;
 
     constructor(private _http: HttpClient, private router: Router) {
@@ -30,7 +30,7 @@ export class JobBoardServiceService {
             .append('Content-Type', 'application/json')
             .append('Accept', 'application/json');
             // .append('Authorization', 'Bearer ' + localStorage.getItem('accessToken').replace('"', ''));
-        url = environment.API_URL_IGNUG + url;
+        url = environment.API_URL_JOB_BOARD + url;
         return this._http.post(url, data, {headers: this.headers});
     }
 
@@ -40,7 +40,7 @@ export class JobBoardServiceService {
             .append('Content-Type', 'application/json')
             .append('Accept', 'application/json');
            // .append('Authorization', 'Bearer ' + localStorage.getItem('accessToken').replace('"', ''));
-        url = environment.API_URL_IGNUG + url;
+        url = environment.API_URL_JOB_BOARD + url;
         return this._http.put(url, data, {headers: this.headers});
     }
 
@@ -50,12 +50,12 @@ export class JobBoardServiceService {
             .append('Content-Type', 'application/json')
             .append('Accept', 'application/json');
             // .append('Authorization', 'Bearer ' + localStorage.getItem('accessToken').replace('"', ''));
-        url = environment.API_URL_IGNUG + url;
+        url = environment.API_URL_JOB_BOARD + url;
         return this._http.delete(url, {headers: this.headers});
     }
 
     upload(url: string, data: any) {
-        url = environment.API_URL_IGNUG + url;
+        url = environment.API_URL_JOB_BOARD + url;
         this.headers = new HttpHeaders(); // .set('Authorization', 'Bearer ' + localStorage.getItem('accessToken').replace('"', ''));
         return this._http.post(url, data, {headers: this.headers});
     }
