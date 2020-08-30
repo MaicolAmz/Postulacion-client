@@ -29,9 +29,11 @@
         <p-paginator></p-paginator>
         <div class="p-grid">
             <div class="p-col-4" *ngFor="let professional of professionals">
-                <p-card>
-                    <p-header>{{professional.professional_degree_id}}</p-header>
-                    {{professional.about_me}}
+                <p-card header="{{professional.name}}" subheader="Mi perfil">
+                    <div>{{professional.about_me}}</div>
+                    <p-footer>
+                        <button pButton type="button" label="Más información" icon="pi pi-info" style="margin-right: .25em"></button>
+                    </p-footer>
                 </p-card>
             </div>
         </div>
