@@ -9,44 +9,18 @@ import { Professional } from '../../../models/job-board/models.index';
 })
 export class AppProfessionalsComponent implements OnInit {
 
-  items: MenuItem[];
+  items: MenuItem[] = [];
   professionals: Professional[];
   totalCompanies: number;
   totalProffesionals: number;
   totalOffers: number;
 
-  constructor(private jobBoardService: JobBoardService) {
-    this.items = [
-      {
-        label: 'EDUCACION',
-        icon: 'pi pi-pw pi-file',
-        items: [
-          { label: 'ASISTENTE PEDAGOGICO CON NIVEL EQUIVALENTE A TECNOLOGO SUPERIOR', icon: 'pi pi-fw pi-plus' },
-          { label: 'ASISTENTE EN EDUCACION INCLUSIVA CON NIVEL EQUIVALENTE A TECNOLOGO SUPERIOR', icon: 'pi pi-fw pi-external-link' }
-        ]
-      },
-      {
-        label: 'CIENCIAS SOCIALES, PERIODISMO E INFORMACION',
-        icon: 'pi pi-fw pi-pencil',
-        items: [
-          { label: 'PRODUCTOR Y CONDUCTOR DE RADIO CON NIVEL EQUIVALENTE A TECNOLOGO SUPERIOR', icon: 'pi pi-fw pi-trash' },
-          { label: 'PRODUCTOR Y CONDUCTOR DE TELEVISION CON NIVEL EQUIVALENTE A TECNOLOGO SUPERIOR', icon: 'pi pi-fw pi-refresh' }
-        ]
-      },
-      {
-        label: 'ADMINISTRACION',
-        icon: 'pi pi-fw pi-question',
-        items: [
-          { label: 'TECNOLOGO SUPERIOR EN TRIBUTACION', icon: 'pi pi-pi pi-bars' },
-          { label: 'TECNOLOGO SUPERIOR EN AUDITORIA', icon: 'pi pi-pi pi-search' }
-        ]
-      }
-    ];
-  }
+  constructor(private jobBoardService: JobBoardService) { }
 
   ngOnInit() {
     this.getTotal();
     this.getProfessionals();
+    this.getCatalogue();
   }
 
   getProfessionals(): void {
@@ -62,6 +36,17 @@ export class AppProfessionalsComponent implements OnInit {
         this.totalCompanies = resolve['totalCompanies'];
         this.totalOffers = resolve['totalOffers'];
         this.totalProffesionals = resolve['totalProfessionals'];
+      },
+      error => console.error(error)
+    );
+  }
+
+  getCatalogue(): void {
+    this.jobBoardService.get('catalogues').subscribe(
+      resolve => {
+        for (let index of resolve['catalogues']){
+          this.items.push({label: index.name, icon: 'pi pi-pw pi-home', items: [{label: 'Sub-categoría', icon: 'pi pi-pw pi-file'}]});
+        }
       },
       error => console.error(error)
     );
