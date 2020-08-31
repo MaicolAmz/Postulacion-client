@@ -14,6 +14,7 @@ export class AppProfessionalsComponent implements OnInit {
   totalCompanies: number;
   totalProffesionals: number;
   totalOffers: number;
+  blocked: boolean;
 
   constructor(private jobBoardService: JobBoardService) { }
 
@@ -24,9 +25,16 @@ export class AppProfessionalsComponent implements OnInit {
   }
 
   getProfessionals(): void {
+    this.blocked = true;
     this.jobBoardService.get('postulants').subscribe(
-      resolve => this.professionals = resolve['postulants']['data'],
-      error => console.error(error)
+      resolve => {
+        this.professionals = resolve['postulants']['data']
+        this.blocked = false;
+      },
+      error => {
+        console.error(error)
+        this.blocked = false;
+      }
     );
   }
 

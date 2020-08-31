@@ -47,6 +47,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CardModule} from 'primeng/card';
 import {PanelMenuModule} from 'primeng/panelmenu';
 import {PaginatorModule} from 'primeng/paginator';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {BlockUIModule} from 'primeng/blockui';
 
 
 // Mis componentes
@@ -98,7 +100,9 @@ import { AppProfessionalsComponent } from './professionals/app.professionals.com
         ConfirmDialogModule,
         CardModule,
         PanelMenuModule,
-        PaginatorModule
+        PaginatorModule,
+        BlockUIModule,
+        ProgressSpinnerModule
     ],
     declarations: [
         AppProfessionalsComponent
