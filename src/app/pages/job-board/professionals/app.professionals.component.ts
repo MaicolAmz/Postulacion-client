@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import {TreeNode} from 'primeng/api';
 import { JobBoardService } from '../../../services/job-board/job-board.service';
 import { Professional } from '../../../models/job-board/models.index';
 
@@ -9,7 +9,8 @@ import { Professional } from '../../../models/job-board/models.index';
 })
 export class AppProfessionalsComponent implements OnInit {
 
-  items: MenuItem[] = [];
+  categories: TreeNode[] = [];
+  categorySelected: TreeNode;
   professionals: Professional[];
   totalCompanies: number;
   totalProffesionals: number;
@@ -26,10 +27,11 @@ export class AppProfessionalsComponent implements OnInit {
 
   getProfessionals(): void {
     this.blocked = true;
-    this.jobBoardService.get('postulants').subscribe(
+    this.jobBoardService.get('postulants?field=updated_at&order=desc&limit=10').subscribe(
       resolve => {
-        this.professionals = resolve['postulants']['data']
+        this.professionals = resolve['postulants']['data'];
         this.blocked = false;
+        console.log(resolve['postulants']['data']);
       },
       error => {
         console.error(error)
@@ -50,11 +52,15 @@ export class AppProfessionalsComponent implements OnInit {
   }
 
   getCatalogue(): void {
-    this.jobBoardService.get('catalogues').subscribe(
+    this.jobBoardService.get('categories').subscribe(
       resolve => {
-        for (let index of resolve['catalogues']){
-          this.items.push({label: index.name, icon: 'pi pi-pw pi-home', items: [{label: 'Sub-categoría', icon: 'pi pi-pw pi-file'}]});
-        }
+        resolve['data']['categories'].forEach(category => {
+          let categoryChildren = [];
+          category['children'].forEach(child => {
+            categoryChildren.push({label: child.name});
+          });
+          this.categories.push({label: category.name, children: categoryChildren});
+        });
       },
       error => console.error(error)
     );
