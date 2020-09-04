@@ -5,7 +5,8 @@ import { Professional } from '../../../models/job-board/models.index';
 
 @Component({
   selector: 'app-professionals',
-  templateUrl: './app.professionals.component.html'
+  templateUrl: './app.professionals.component.html',
+  styleUrls: ['app.professionals.component.scss'],
 })
 export class AppProfessionalsComponent implements OnInit {
 
@@ -16,8 +17,13 @@ export class AppProfessionalsComponent implements OnInit {
   totalProffesionals: number;
   totalOffers: number;
   blocked: boolean;
+  //Searcher
+  criterioBusqueda: string;
 
-  constructor(private jobBoardService: JobBoardService) { }
+
+  constructor(private jobBoardService: JobBoardService) { 
+    this.criterioBusqueda = '';
+  }
 
   ngOnInit() {
     this.getTotal();
@@ -27,11 +33,10 @@ export class AppProfessionalsComponent implements OnInit {
 
   getProfessionals(): void {
     this.blocked = true;
-    this.jobBoardService.get('postulants?field=updated_at&order=desc&limit=10').subscribe(
-      resolve => {
-        this.professionals = resolve['postulants']['data'];
+    this.jobBoardService.get('postulants?limit=9&page=1&field=id&order=DESC').subscribe(
+      response => {
+        this.professionals = response['postulants']['data'];
         this.blocked = false;
-        console.log(resolve['postulants']['data']);
       },
       error => {
         console.error(error)
@@ -42,10 +47,10 @@ export class AppProfessionalsComponent implements OnInit {
 
   getTotal(): void {
     this.jobBoardService.get('total').subscribe(
-      resolve => {
-        this.totalCompanies = resolve['totalCompanies'];
-        this.totalOffers = resolve['totalOffers'];
-        this.totalProffesionals = resolve['totalProfessionals'];
+      response => {
+        this.totalCompanies = response['totalCompanies'];
+        this.totalOffers = response['totalOffers'];
+        this.totalProffesionals = response['totalProfessionals'];
       },
       error => console.error(error)
     );
@@ -53,17 +58,43 @@ export class AppProfessionalsComponent implements OnInit {
 
   getCatalogue(): void {
     this.jobBoardService.get('categories').subscribe(
-      resolve => {
-        resolve['data']['categories'].forEach(category => {
+      response => {
+        
+        response['data']['categories'].forEach(category => {
           let categoryChildren = [];
           category['children'].forEach(child => {
             categoryChildren.push({label: child.name});
           });
           this.categories.push({label: category.name, children: categoryChildren});
         });
+        
       },
       error => console.error(error)
     );
+  }
+
+  //Searched
+  filterPostulantsField() {
+    //this.filterOption = 'field';
+    console.log(this.criterioBusqueda);
+    this.jobBoardService.get(`postulants/filter?limit=9&page=1&field=id&order=DESC&filter=${this.criterioBusqueda.toUpperCase()}`).subscribe(
+      response => {
+        this.professionals = response['postulants']['data'];
+        console.log(this.professionals)
+        /*
+        if (response['pagination']['total'] === 0) {
+          swal({
+            title: 'Oops! No encotramos lo que estás buscando',
+            text: 'Intenta otra vez!',
+            type: 'info',
+            timer: 3500
+          });
+          this.total_pages = 1;
+        } else {
+          this.total_pages = response['pagination']['last_page'];
+        }
+        */
+      });
   }
 
 }

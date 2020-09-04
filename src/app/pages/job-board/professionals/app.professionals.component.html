@@ -3,6 +3,7 @@
         <p-progressSpinner></p-progressSpinner>
     </div>
 </p-blockUI>
+
 <h1>Bolsa de Empleo</h1>
 <div class="p-grid">
     <div class="p-col">
@@ -24,17 +25,17 @@
 
 <div class="p-grid">
     <div class="p-col-3">
-        <p-tree [value]="categories" selectionMode="checkbox" [(selection)]="categorySelected"></p-tree>
+        <p-tree [value]="categories" [styleClass]="'my-tree'" selectionMode="checkbox" [(selection)]="categorySelected"></p-tree>
     </div>
-    <div class="p-col-9">
+    <div class="p-col-8">
         <div class="ui-inputgroup">
-            <input type="text" pInputText placeholder="Keyword">
-            <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
+            <input type="text" pInputText placeholder="Keyword" [(ngModel)]="criterioBusqueda">
+            <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="filterPostulantsField()"></button>
         </div>
         <p-paginator></p-paginator>
         <div class="p-grid">
             <div class="p-col-4" *ngFor="let professional of professionals">
-                <p-card header="{{professional.academic_formations}}" subheader="Mi perfil">
+                <p-card header="{{professional.academic_formations[0].professional_degree.name}}" subheader="Mi perfil">
                     <div>{{professional.about_me}}</div>
                     <p-footer>
                         <button pButton type="button" label="Más información" icon="pi pi-info" style="margin-right: .25em"></button>
