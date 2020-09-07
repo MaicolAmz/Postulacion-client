@@ -1,17 +1,23 @@
-import { Catalogue } from './catalogue';
-import { Professional } from './professional';
-import { State } from '../ignug/state';
+import {Professional, Catalogue} from './models.index';
+import {State} from '../ignug/models.index';
 
 export class Course {
     id: number;
-    professional_id: Professional;
-    event_type_id: Catalogue;
-    institution_id: Catalogue;
+    professional: Professional;
+    event_type: Catalogue;
+    institution: Catalogue;
     event_name: string;
     start_date: Date;
-    finish_date: Date;
+    end_date: Date;
     hours: string;
-    type_certification_id: Catalogue;
-    state_id: State
+    type_certification: Catalogue;
+    state: State;
+
+    constructor() {
+        this.institution = new Catalogue();
+        this.event_type = new Catalogue();
+        this.type_certification = new Catalogue();
+        this.state = new State();
+    }
 }
 

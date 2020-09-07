@@ -1,0 +1,85 @@
+<p-blockUI [blocked]="blocked">
+    <div style="position:absolute;top:35%;left:50%">
+        <p-progressSpinner></p-progressSpinner>
+    </div>
+</p-blockUI>
+
+<div class="landing-body">
+    <div id="meet-mirage" class="section">
+        <div class="buy-mirage-promo-wrapper">
+            <div class="buy-mirage-promo" style="width: 100%;">
+                <div class="promo-content">
+                    <h1>Bolsa de Empleo</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="pricing" class="section">
+        <div class="pricing-cards">
+            <p-card>
+                <div class="pricing-card-title">
+                    <h1>
+                        {{totalCompanies}}
+                        <i class="pi pi-user" style="font-size: 1em"></i>
+                    </h1>
+                    <h3>Empresas Registradas</h3>
+                </div>
+            </p-card>
+            <p-card>
+                <div class="pricing-card-title">
+                    <h1>
+                        {{totalProffesionals}}
+                        <i class="pi pi-users" style="font-size: 1em"></i>
+                    </h1>
+                    <h3>Profesionales Vinculados</h3>
+                </div>
+            </p-card>
+            <p-card>
+                <div class="pricing-card-title">
+                    <h1>
+                        {{totalOffers}}
+                        <i class="pi pi-briefcase" style="font-size: 1em"></i>
+                    </h1>
+                    <h3>Ofertas laborales</h3>
+                </div>
+            </p-card>
+        </div>
+    </div>
+
+    <div class="p-grid">
+        <div class="p-col-3">
+            <p-tree [value]="categories" [styleClass]="'my-tree'" selectionMode="checkbox" 
+            (onNodeSelect)="filterPostulantsSingle()" [(selection)]="categorySelected"
+            (onNodeUnselect)="filterPostulantsSingle()"></p-tree>
+        </div>
+        <div class="p-col-8">
+            <div class="ui-inputgroup">
+                <input type="text" pInputText placeholder="Ingrese su criterio de Búsqueda (Software, Asistente, Marketing, Etc)" [(ngModel)]="criterioBusqueda"
+                (change)="checkSearch()" style="width: 100%;">
+                <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="filterPostulantsField()"></button>
+            </div>
+            <p-paginator [rows]="9" [totalRecords]="totalRecords" [pageLinkSize]="5" 
+            (onPageChange)="paginate($event)"></p-paginator>
+            <div class="p-grid">
+                <div class="p-col-4" *ngFor="let professional of professionals">
+                    <div *ngIf="professional.academic_formations[0].category != null">
+                        <p-card header="{{professional.academic_formations[0].category.name}}" subheader="Mi perfil">
+                            <div>{{professional.about_me}}</div>
+                            <p-footer>
+                                <button pButton type="button" label="Más información" icon="pi pi-info" style="margin-right: .25em"></button>
+                            </p-footer>
+                        </p-card>
+                    <div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="multimedia" class="section">
+        <div class="section-title">
+            <h1>Conoce Más</h1>
+        </div>
+        <div class="multimedia-video-wrapper">
+            <iframe src="https://www.youtube.com/embed/B_lYGUtCd0g" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
+    </div>
+</div>

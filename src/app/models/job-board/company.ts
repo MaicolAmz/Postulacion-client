@@ -1,12 +1,19 @@
-import { State } from './../ignug/state';
-import { User } from '../authentication/user';
-import { Catalogue } from './catalogue';
+import {Catalogue} from './models.index';
+import {State} from '../ignug/models.index';
 
 export class Company {
-    id: number;
-    user_id: User;
-    type_id: Catalogue;
+    id: string;
+    type: Catalogue;
+    web_page: string;
     trade_name: string;
     comercial_activity: string;
-    state_id: State
+    state: State;
+
+    constructor() {
+        this.web_page = '';
+        this.trade_name = '';
+        this.comercial_activity = '';
+        this.comercial_activity = '';
+        this.state = new State();
+    }
 }

@@ -1,13 +1,18 @@
-import { User } from '../authentication/user';
-import { State } from '../ignug/state';
+import {State} from '../ignug/models.index';
 
 export class Catalogue {
     id: number;
-    parent_code_id: Catalogue;
+    parent_code: Catalogue;
     code: string;
     name: string;
     type: string;
     icon: string;
-    state_id: State
+    state: State;
+
+    constructor() {
+        this.parent_code = new Catalogue();
+        this.state = new State();
+    }
+
 }
 

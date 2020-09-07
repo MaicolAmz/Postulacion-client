@@ -1,12 +1,17 @@
-import { Professional } from './professional';
-import { State } from './../ignug/state';
-import { Category } from './category';
+import {State} from './../ignug/models.index';
+import {Professional, Catalogue} from './models.index';
 
 export class Ability {
     id: number;
-    professional_id: Professional;
-    category_id: Category;
+    professional: Professional;
+    category: Catalogue;
     description: string;
-    state_id: State
+    state: State;
+
+    constructor() {
+        this.professional = new Professional();
+        this.category = new Catalogue();
+        this.state = new State();
+    }
 }
 

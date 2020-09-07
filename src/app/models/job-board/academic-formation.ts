@@ -1,16 +1,20 @@
-import { Catalogue } from './catalogue';
-import { Professional } from './professional';
-import { State } from '../ignug/state';
+import {Catalogue, Category, Professional} from './models.index';
+import {State} from '../ignug/models.index';
 
 export class AcademicFormation {
     id: number;
-    professional_id: Professional;
-    institution_id: Catalogue;
-    career_id: Catalogue;
-    professional_degree_id: Catalogue;
+    professional: Professional;
+    category: Category;
+    professional_degree: Catalogue;
     registration_date: Date;
     senescyt_code: string;
     has_titling: boolean;
-    state_id: State
+    state: State;
+
+    constructor() {
+        this.category = new Category();
+        this.professional_degree = new Catalogue();
+        this.state = new State();
+    }
 }
 

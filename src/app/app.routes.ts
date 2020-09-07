@@ -37,18 +37,18 @@ export const routes: Routes = [
             {path: 'documentation', component: DocumentationComponent},
             {
                 path: 'attendance',
-                loadChildren: () => import('./pages/attendance/administrativo.module').then(m => m.AdministrativoModule),
+                loadChildren: () => import('./pages/attendance/attendance.module').then(m => m.AttendanceModule),
                 canActivate: [AuthGuard]
             },
             {
                 path: 'job-board',
                 loadChildren: () => import('./pages/job-board/job-board.module').then(m => m.JobBoardModule),
-                // canActivate: [AuthGuard]
+                //canActivate: [AuthGuard]
             },
             {
                 path: 'web',
                 loadChildren: () => import('./pages/web/web.module').then(m => m.WebModule),
-                // canActivate: [AuthGuard]
+                canActivate: [AuthGuard]
             },
 
         ]
@@ -59,9 +59,14 @@ export const routes: Routes = [
         loadChildren: () => import('./pages/authentication/authentication.module').then(m => m.AuthenticationModule)
     },
     {
-        path: 'bolsa-empleo',
+        path: 'app-job-board',
         component: BlankComponent,
-        loadChildren: () => import('./pages/job-board/job-board.module').then(m => m.JobBoardModule)
+        loadChildren: () => import('./pages/job-board/landing/landing.module').then(m => m.LandingModule)
+    },
+    {
+        path: 'app-web',
+        component: BlankComponent,
+        loadChildren: () => import('./pages/web/web.module').then(m => m.WebModule)
     },
     {path: '**', redirectTo: '/authentication/404'},
 

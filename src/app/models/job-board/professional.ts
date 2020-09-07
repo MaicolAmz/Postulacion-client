@@ -1,11 +1,16 @@
-import { AcademicFormation } from './models.index';
+import {AcademicFormation, Catalogue} from './models.index';
 import {User} from '../authentication/models.index';
 import {State} from '../ignug/models.index';
 
 export class Professional {
     id: number;
-    user_id: User;
+    user: User;
     about_me: string;
-    state_id: State;
-    academic_formations?: AcademicFormation
+    state: State;
+
+    constructor() {
+        this.user = new User();
+        this.state = new State();
+
+    }
 }

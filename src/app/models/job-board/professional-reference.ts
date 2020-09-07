@@ -1,13 +1,19 @@
-import { Professional } from './professional';
-import { State } from './../ignug/state';
+import {Professional} from './models.index';
+import {State} from './../ignug/models.index';
 
 export class ProfessionalReference {
     id: number;
-    professional_id: Professional;
+    professional: Professional;
     institution: string;
     position: string;
     contact: string;
     phone: string;
-    state_id: State
+    state: State;
+
+    constructor() {
+        this.professional = new Professional();
+        this.state = new State();
+
+    }
 }
 

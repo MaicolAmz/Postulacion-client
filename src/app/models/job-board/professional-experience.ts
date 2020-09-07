@@ -1,17 +1,22 @@
-import { Catalogue } from './catalogue';
-import { Professional } from './professional';
-import { State } from '../ignug/state';
+import {Professional, Catalogue} from './models.index';
+import {State} from '../ignug/models.index';
 
 export class ProfessionalExperience {
     id: number;
-    professional_id: Professional;
+    professional: Professional;
     employer: string;
-    position_id: Catalogue;
+    position: string;
     job_description: string;
     start_date: string;
-    finish_date: string;
+    end_date: string;
     reason_leave: string;
-    current_work: string;
-    state_id: State
+    current_work: boolean;
+    state: State;
+
+    constructor() {
+        this.professional = new Professional();
+        this.state = new State();
+
+    }
 }
 
