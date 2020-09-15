@@ -50,11 +50,11 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {AppPersonalInformationComponent} from './personal-information/app-personal-information.component';
 import {ProfessionalComponent} from './professional.component';
 import {AppCourseComponent} from './course/app.course.component';
-import {AppProfessionalReferenceComponent} from './professional-reference/app-professional-reference.component';
 import {AppAbilityComponent} from './ability/app.ability.component';
 import {AppProfessionalExperienceComponent} from './profesional-experience/app.professional-experience.component';
 import {AppAcademicFormationComponent} from './academic-formation/app.academic-formation.component';
 import {AppOportunitiesComponent} from './oportunities/app.oportunities.component';
+import { AppProfessionalReferenceComponent } from './professional-reference/app-professional-references.component';
 
 
 @NgModule({

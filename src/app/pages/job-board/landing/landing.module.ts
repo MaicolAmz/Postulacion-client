@@ -32,7 +32,6 @@ import {InputTextModule} from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {LightboxModule} from 'primeng/lightbox';
 import {ListboxModule} from 'primeng/listbox';
-import {MegaMenuModule} from 'primeng/megamenu';
 import {MenuModule} from 'primeng/menu';
 import {MenubarModule} from 'primeng/menubar';
 import {MessagesModule} from 'primeng/messages';
@@ -68,6 +67,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import {TreeModule} from 'primeng/tree';
 import {TreeTableModule} from 'primeng/treetable';
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
+import {MegaMenuModule} from 'primeng/megamenu';
 // MyComponentes
 import {AppOffersComponent} from './offers/app.offers.component';
 import {AppProfessionalsComponent} from './professionals/app.professionals.component';
@@ -128,7 +128,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
         BlockUIModule,
         ProgressSpinnerModule,
         PaginatorModule,
-
+        MegaMenuModule
     ],
     declarations: [AppOffersComponent, AppProfessionalsComponent],
     providers: []

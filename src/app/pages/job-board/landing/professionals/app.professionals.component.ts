@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode, MegaMenuItem } from 'primeng/api';
 import { JobBoardService } from '../../../../services/job-board/job-board-service.service';
 import { Professional } from '../../../../models/job-board/models.index';
 import { isUndefined, isError, isNullOrUndefined } from 'util';
@@ -29,6 +29,9 @@ export class AppProfessionalsComponent implements OnInit {
     totalRecords: number;
     filterOption: string;
 
+    //Menu
+    items: MegaMenuItem[];
+
     constructor(private jobBoardService: JobBoardService) {
         this.criterioBusqueda = '';
         this.total_pages = 1;
@@ -36,6 +39,28 @@ export class AppProfessionalsComponent implements OnInit {
         this.records_per_page = 9;
         this.totalRecords = 1;
         this.filterOption = 'deafut';
+        this.categorySelected = [];
+        //Menu
+        this.items = [
+            {
+                label: 'Acerca de Nosotros', icon: 'pi pi-fw pi-video',
+            },
+            {
+                label: 'Profesionales', icon: 'pi pi-fw pi-video',
+            },
+            {
+                label: 'Ofertas Laborales', icon: 'pi pi-fw pi-video',
+            },
+            {
+                label: 'Inicio Sesión', icon: 'pi pi-fw pi-video',
+            },
+            {
+                label: 'Registro Empresas', icon: 'pi pi-fw pi-video',
+            },
+            {
+                label: 'Registro Profesionales', icon: 'pi pi-fw pi-video',
+            },
+        ]
     }
 
     ngOnInit() {
@@ -150,6 +175,9 @@ export class AppProfessionalsComponent implements OnInit {
                 case 'filter':
                     this.filterPostulantsSingle()
                     break;
+                default :
+                    this.getProfessionals();
+                    break
             }
         }
     }

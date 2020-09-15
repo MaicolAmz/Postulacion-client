@@ -40,7 +40,7 @@ export class JobBoardService {
             .append('Content-Type', 'application/json')
             .append('Accept', 'application/json');
         // .append('Authorization', 'Bearer ' + localStorage.getItem('accessToken').replace('"', ''));
-        url = environment.API_URL_IGNUG + url;
+        url = environment.API_URL_JOB_BOARD + url;
         return this._http.put(url, data, {headers: this.headers});
     }
 
@@ -50,7 +50,7 @@ export class JobBoardService {
             .append('Content-Type', 'application/json')
             .append('Accept', 'application/json');
         // .append('Authorization', 'Bearer ' + localStorage.getItem('accessToken').replace('"', ''));
-        url = environment.API_URL_IGNUG + url;
+        url = environment.API_URL_JOB_BOARD + url;
         return this._http.delete(url, {headers: this.headers});
     }
 

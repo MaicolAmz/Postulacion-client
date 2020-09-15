@@ -40,12 +40,12 @@ export class ProfessionalComponent implements OnInit {
     cataloguesTree: TreeNode[];
     selectedcataloguesTree: TreeNode;
 
-    constructor(private messageService: MessageService, private nodeService: NodeService) {
-        this.activeIndex = 1;
+    constructor(/*private messageService: MessageService,*/ /*private nodeService: NodeService*/) {
+        //this.activeIndex = 1;
     }
 
     ngOnInit(): void {
-        this.items = [{
+        /*this.items = [{
             label: 'Personal',
             command: (event: any) => {
                 this.activeIndex = 0;
@@ -75,10 +75,11 @@ export class ProfessionalComponent implements OnInit {
             }
         ];
         this.cargarTree();
+        */
     }
 
     cargarTree() {
-        this.nodeService.getFilesCatalogue().then(files => this.cataloguesTree = files);
+        //this.nodeService.getFilesCatalogue().then(files => this.cataloguesTree = files);
     }
 
     select() {

@@ -38,7 +38,7 @@ export const routes: Routes = [
             {
                 path: 'attendance',
                 loadChildren: () => import('./pages/attendance/attendance.module').then(m => m.AttendanceModule),
-                canActivate: [AuthGuard]
+                //canActivate: [AuthGuard]
             },
             {
                 path: 'job-board',
@@ -48,7 +48,7 @@ export const routes: Routes = [
             {
                 path: 'web',
                 loadChildren: () => import('./pages/web/web.module').then(m => m.WebModule),
-                canActivate: [AuthGuard]
+                //canActivate: [AuthGuard]
             },
 
         ]

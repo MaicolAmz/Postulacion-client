@@ -1,10 +1,10 @@
-import {Professional} from './models.index';
+import {Professional, Catalogue} from './models.index';
 import {State} from './../ignug/models.index';
 
 export class ProfessionalReference {
     id: number;
     professional: Professional;
-    institution: string;
+    institution: Catalogue;
     position: string;
     contact: string;
     phone: string;
@@ -13,6 +13,7 @@ export class ProfessionalReference {
     constructor() {
         this.professional = new Professional();
         this.state = new State();
+        this.institution = new Catalogue();
 
     }
 }

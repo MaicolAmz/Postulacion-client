@@ -1,71 +1,66 @@
 import {Component, OnInit} from '@angular/core';
-import {JobBoardService} from '../../../../services/job-board/job-board-service.service';
-import {Course} from '../../../../models/job-board/models.index';
+import {Professional} from '../../../../models/job-board/models.index';
 import {ConfirmationService, MessageService, SelectItem} from 'primeng/api';
+import {AuthenticationServiceService} from '../../../../services/authentication/authentication-service.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {JobBoardService} from '../../../../services/job-board/job-board-service.service';
 import {Validators, FormControl, FormGroup, FormBuilder} from '@angular/forms';
+import { ProfessionalReference } from 'src/app/models/job-board/models.index';
 
 @Component({
-    selector: 'app-course',
-    templateUrl: './app.course.component.html',
+    selector: 'app-professional-reference',
+    templateUrl: './app-professional-references.component.html',
+    
 })
-export class AppCourseComponent implements OnInit {
-    displayCourse: boolean; // para visualizar el modal nuevo usuario - modificiar usuario
-    eventTypes: SelectItem[]; // para almacenar el catalogo de las etnias
+export class AppProfessionalReferenceComponent implements OnInit {
+    displayProfessionalReference: boolean; // para visualizar el modal nuevo usuario - modificiar usuario
+    position: SelectItem[]; // para almacenar el catalogo de las etnias
     typeCertifications: SelectItem[]; // para almacenar el catalogo de las los cantones
-    selectedCourse: Course; // para guardar el usuario seleccionado o para poder editar la informacion
-    courses: Array<Course>; // para almacenar el listado de todos los usuarios
+    selectedProfessionalReference: ProfessionalReference; // para guardar el usuario seleccionado o para poder editar la informacion
+    professionalReferences: Array<ProfessionalReference>; // para almacenar el listado de todos los usuarios
     institutions: SelectItem[];
-    colsCourse: any[]; // para almacenar las columnas para la tabla usuarios
-    headerDialogCourse: string; // para cambiar de forma dinamica la cabecear del  modal de creacion o actualizacion de usuario
-    courseForm: FormGroup;
+    colsProfessionalReference: any[]; // para almacenar las columnas para la tabla usuarios
+    headerDialogProfessionalReference: string; // para cambiar de forma dinamica la cabecear del  modal de creacion o actualizacion de usuario
+    professionalReferenceForm: FormGroup;
     validationBirthdate: string;
+    validationPhone: string;
     validationStart_date: string;
     validationFinish_date: string;
-    
+
     constructor(private messageService: MessageService,
                 private jobBoardService: JobBoardService,
                 private spinnerService: NgxSpinnerService,
                 private confirmationService: ConfirmationService,
                 private fb: FormBuilder) {
-        this.buildFormCourse();
-        //this.selectedCourse = new Course();
-        this.courses = new Array<Course>();
-        this.colsCourse = [
+        this.buildFormProfessionalReference();
+        //this.selectedProfessionalReference = new ProfessionalReference();
+        this.professionalReferences = new Array<ProfessionalReference>();
+        this.colsProfessionalReference = [
             {field: 'institution', header: 'Institución'},
-            {field: 'event_type', header: 'Tipo'},
-            {field: 'event_name', header: 'Descripción'},
-            {field: 'type_certification', header: 'Certificado'},
-            {field: 'hours', header: 'Horas'},
+            {field: 'position', header: 'Cargo'},
+            {field: 'contact', header: 'Contactos'},
+            {field: 'phone', header: 'telefono'},
+        
         ];
-        const currentDate = new Date();
-        this.validationStart_date = (currentDate.getFullYear() - 70).toString() + ':' + currentDate.getFullYear().toString();
-        this.validationFinish_date = (currentDate.getFullYear() - 70).toString() + ':' + currentDate.getFullYear().toString();
     }
-    
-    buildFormCourse() {
-        this.courseForm = this.fb.group({
-            institution_id: ['', Validators.required],
-            event_type_id: ['', Validators.required],
-            event_name: ['', Validators.required],
-            start_date: ['', Validators.required],
-            finish_date: ['', Validators.required],
-            hours: ['', Validators.required],
-            type_certification_id: ['', Validators.required],
 
+    buildFormProfessionalReference() {
+        this.professionalReferenceForm = this.fb.group({
+            institution: ['', Validators.required],
+            position: ['', Validators.required],
+            contact: ['', Validators.required],
+            phone: ['', Validators.required],
         });
     }
-    
+
     // Esta funcion se ejectuta apenas inicie el componente
     ngOnInit(): void {
-        this.getCourses();
-        this.getInstitutions();
-        this.getEventTypes();
-        this.getTypeCertifications();
+        this.getProfessionalReferences();
+        this.getInstitutions();  
     }
 
     // obtiene la lista del catalogo de tipo de evento
-    getEventTypes(): void {
+    /*getEventTypes(): void {
         const parameters = '?type=event_type';
         this.jobBoardService.get('catalogues' + parameters).subscribe(
             response => {
@@ -84,10 +79,10 @@ export class AppCourseComponent implements OnInit {
                     life: 5000
                 });
             });
-    }
+    }*/
 
     getInstitutions(): void {
-        const parameters = '?type=institution';
+        const parameters = '?type=career';
         this.jobBoardService.get('catalogues' + parameters).subscribe(
             response => {
                 const institution = response['data']['catalogues'];
@@ -100,7 +95,7 @@ export class AppCourseComponent implements OnInit {
                 this.messageService.add({
                     key: 'tst',
                     severity: 'error',
-                    summary: 'Oops! Problemas al cargar el catálogo Tipos de Documentos',
+                    summary: 'Oops! Problemas al cargar el catálogo Tipos de Instituciones',
                     detail: 'Vuelve a intentar más tarde',
                     life: 5000
                 });
@@ -127,13 +122,14 @@ export class AppCourseComponent implements OnInit {
                 });
             });
     }
-    
-    getCourses() {
+
+    getProfessionalReferences() {
+     
         this.spinnerService.show();
-        this.jobBoardService.get('job-board/courses').subscribe(
-            response => {
+        this.jobBoardService.get('professional_references?limit=9&page=1&field=id&order=ASC&user_id=1').subscribe(
+            response => { 
                 this.spinnerService.hide();
-                this.courses = response['data']['courses'];
+                this.professionalReferences = response['professionalReferences']['data'][0]['professional_references'];
             }, error => {
                 this.spinnerService.hide();
                 this.messageService.add({
@@ -146,22 +142,23 @@ export class AppCourseComponent implements OnInit {
             });
     }
 
-    createCourse() {
-        this.selectedCourse = this.getCourse();
+    createProfessionalReference() {
+        this.selectedProfessionalReference = this.getProfessionalReference();
         this.spinnerService.show();
-        this.jobBoardService.post('job-board/course', {'course': this.selectedCourse}).subscribe(
+        console.log({'user': { 'id': 1 },'professionalReference': this.selectedProfessionalReference})
+        this.jobBoardService.post('professional_references', {'user': { 'id': 1 },'professionalReference': this.selectedProfessionalReference}).subscribe(
             response => {
-                this.courses.unshift(this.selectedCourse);
-
+                this.professionalReferences.unshift(this.selectedProfessionalReference);
+                this.getProfessionalReferences();
                 this.spinnerService.hide();
                 this.messageService.add({
                     key: 'tst',
                     severity: 'success',
                     summary: 'Se creó correctamente',
-                    detail: this.selectedCourse.event_name,
+                    detail: this.selectedProfessionalReference.institution.name,
                     life: 3000
                 });
-                this.displayCourse = false;
+                this.displayProfessionalReference = false;
             }, error => {
                 this.spinnerService.hide();
                 this.messageService.add({
@@ -174,20 +171,21 @@ export class AppCourseComponent implements OnInit {
             });
     }
 
-    updateCourse() {
-        this.selectedCourse = this.getCourse();
+    updateProfessionalReference() {
+        this.selectedProfessionalReference = this.getProfessionalReference();
         this.spinnerService.show();
-        this.jobBoardService.update('courses', {'course': this.selectedCourse}).subscribe(
+        this.jobBoardService.update('professional_references/update', {'user': { 'id': 1 }, 'professionalReference': this.selectedProfessionalReference}).subscribe(
             response => {
                 this.spinnerService.hide();
                 this.messageService.add({
                     key: 'tst',
                     severity: 'success',
                     summary: 'Se actualizó correctamente',
-                    detail: this.selectedCourse.event_name,
+                    detail: this.selectedProfessionalReference.institution.name,
                     life: 3000
                 });
-                this.displayCourse = false;
+                this.displayProfessionalReference = false;
+                this.getProfessionalReferences();
             }, error => {
                 this.spinnerService.hide();
                 this.messageService.add({
@@ -199,9 +197,8 @@ export class AppCourseComponent implements OnInit {
                 });
             });
     }
-    
-   
-    deleteCourse(course: Course) {
+
+    deleteProfessionalReference(professionalReference: ProfessionalReference) {
         this.confirmationService.confirm({
             header: 'Eliminar ',
             message: '¿Estás seguro de eliminar?',
@@ -210,11 +207,11 @@ export class AppCourseComponent implements OnInit {
             icon: 'pi pi-trash',
             accept: () => {
                 this.spinnerService.show();
-                this.jobBoardService.delete('job-board/courses/' + course.id).subscribe(
+                this.jobBoardService.delete('professional_references/' + professionalReference.id).subscribe(
                     response => {
-                        const indiceCourse = this.courses
-                            .findIndex(element => element.id === course.id);
-                        this.courses.splice(indiceCourse, 1);
+                        const indiceProfessionalReference = this.professionalReferences
+                            .findIndex(element => element.id === professionalReference.id);
+                        this.professionalReferences.splice(indiceProfessionalReference, 1);
                         this.spinnerService.hide();
                         this.messageService.add({
                             key: 'tst',
@@ -236,46 +233,45 @@ export class AppCourseComponent implements OnInit {
         });
 
     }
-    
-    selectCourse(course: Course): void {
-        if (course) {
-            this.selectedCourse = course;
-            this.courseForm.controls['institution_id'].setValue(course.institution.id);
-            this.courseForm.controls['event_type_id'].setValue(course.event_type.id);
-            this.courseForm.controls['event_name'].setValue(course.event_name);
-            this.courseForm.controls['start_date'].setValue(course.start_date);
-            this.courseForm.controls['finish_date'].setValue(course.end_date);
-            this.courseForm.controls['hours'].setValue(course.hours);
-            this.courseForm.controls['type_certification_id'].setValue(course.type_certification.id);
-            this.headerDialogCourse = 'Modificar Curso';
+
+    selectProfessionalReference(professionalReference :ProfessionalReference): void {
+        if (professionalReference) {
+            this.selectedProfessionalReference = professionalReference;
+            this.professionalReferenceForm.controls['institution'].setValue(professionalReference.institution.name);
+            this.professionalReferenceForm.controls['position'].setValue(professionalReference.position);
+            this.professionalReferenceForm.controls['contact'].setValue(professionalReference.contact);
+            this.professionalReferenceForm.controls['phone'].setValue(professionalReference.phone);
+            this.headerDialogProfessionalReference = 'Modificar Referencias Profesionales';
         } else {
-            this.selectedCourse = new Course();
-            this.courseForm.reset();
-            this.headerDialogCourse = 'Nuevo Curso';
+            //this.selectedProfessionalReference = new ProfessionalReference();
+            this.professionalReferenceForm.reset();
+            this.headerDialogProfessionalReference = 'Nueva Referencia';
         }
-        this.displayCourse = true;
+        this.displayProfessionalReference = true;
     }
 
-    getCourse(): Course {
+    getProfessionalReference(): ProfessionalReference {
         return {
-            institution: {id: this.courseForm.controls['institution_id'].value},
-            event_type: {id: this.courseForm.controls['event_type_id'].value},
-            event_name: this.courseForm.controls['event_name'].value,
-            start_date: this.courseForm.controls['start_date'].value,
-            end_date: this.courseForm.controls['finish_date'].value,
-            hours: this.courseForm.controls['hours'].value,
-            type_certification: {id: this.courseForm.controls['type_certification_id'].value},
-        } as Course;
+            institution:{ id:  this.professionalReferenceForm.controls['institution'].value },
+            position:  this.professionalReferenceForm.controls['position'].value,
+            contact: this.professionalReferenceForm.controls['contact'].value,
+            phone: this.professionalReferenceForm.controls['phone'].value,
+            
+        } as ProfessionalReference;
     }
 
-    onSubmitCourse(event: Event) {
+    onSubmitProfessionalReference(event: Event) {
         event.preventDefault();
-        if (this.courseForm.valid) {
-            console.log(event);
+        if (this.professionalReferenceForm.valid) {
+            debugger
+            if( this.headerDialogProfessionalReference == 'Modificar Referencias Profesionales' ) {
+                this.updateProfessionalReference();
+            } else if( this.headerDialogProfessionalReference == 'Nueva Referencia' ) {
+                this.createProfessionalReference();
+            }
         } else {
-            this.courseForm.markAllAsTouched();
+            this.professionalReferenceForm.markAllAsTouched();
         }
 
     }
-    
 }

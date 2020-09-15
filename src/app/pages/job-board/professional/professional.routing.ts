@@ -3,7 +3,6 @@ import {Routes} from '@angular/router';
 import {AuthGuard} from '../../../shared/auth-guard/auth.guard';
 import {ProfessionalComponent} from './professional.component';
 
-
 export const HojaVidaRoutes: Routes = [
     {
         path: '',
@@ -11,7 +10,7 @@ export const HojaVidaRoutes: Routes = [
             {
                 path: '',
                 component: ProfessionalComponent,
-                canActivate: [AuthGuard]
+                //canActivate: [AuthGuard]
             },
         ]
     }
